@@ -1,13 +1,16 @@
 import streamlit as st
 import sys
-sys.path.append(r"C:/Users/GS Adithya Krishna\Desktop\study/agentic ai/interview_agent\backend")
+
+# Add backend to path
+sys.path.append(r"C:/Users/GS Adithya Krishna/Desktop/study/agentic ai/interview_agent/backend")
 from interview_agent import build_interview_agent
 
 st.set_page_config(page_title="Talent-Scout AI Interview Agent", page_icon="🤖", layout="centered")
 
-st.title("🤖 Talent-Scout  AI Interview Agent")
+st.title("🤖 Talent-Scout AI Interview Agent")
 st.write("Fill in your details to start the interview.")
 
+# Candidate info form
 with st.form("candidate_form"):
     name = st.text_input("Full Name")
     place = st.text_input("Place")
@@ -39,6 +42,14 @@ if submitted:
     st.session_state["chain"] = build_interview_agent(qualifications)
     st.session_state["chat_history"] = []
 
+    # 👇 AI starts interview automatically
+    opening_message = st.session_state["chain"].invoke({
+        "question": "Introduce yourself as the AI interviewer and ask the first question.",
+        "chat_history": [],
+        **st.session_state["candidate_info"]
+    })
+    st.session_state["chat_history"].append(("AI Interviewer", opening_message["answer"]))
+
 # Chat Interface
 if st.session_state.get("interview_started", False):
     st.subheader("💬 Interview Chat")
@@ -64,3 +75,4 @@ if st.session_state.get("interview_started", False):
             st.chat_message("user").write(msg)
         else:
             st.chat_message("assistant").write(msg)
+            

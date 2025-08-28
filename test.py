@@ -1,9 +1,14 @@
-from google import genai
+from mistralai import Mistral
+# Initialize client with your API key
+import os
 from dotenv import load_dotenv
 load_dotenv()
-import os
-s = os.getenv("google")
-client = genai.Client(api_key = s)
+m = os.getenv("mistral")
+client = Mistral(api_key=m)
+
+# List available models
 models = client.models.list()
-for model in models:
-    print(model.name)
+
+# Print model IDs
+for model in models.data:
+    print(model.id)
