@@ -8,7 +8,7 @@ sys.path.append(r"C:/Users/GS Adithya Krishna/Desktop/study/agentic ai/interview
 from interview_agent import build_interview_agent
 
 # Finishing keyword
-KEY_WORD = "Team"
+KEY_WORD = "HR Team"
 
 # Streamlit page setup
 st.set_page_config(page_title="Talent-Scout AI Interview Agent", page_icon="🤖", layout="centered")
@@ -118,7 +118,7 @@ if st.session_state["interview_started"] and not st.session_state["interview_ove
             st.session_state["candidate_info"] = {}
             st.session_state["chat_history"] = []
 
-            st.success(f"✅ The interview has ended. The AI concluded the session with: '{KEY_WORD}'.")
+            st.success(f"The interview has ended . Thankyou for your time .")
 
 # import streamlit as st
 # import sys
